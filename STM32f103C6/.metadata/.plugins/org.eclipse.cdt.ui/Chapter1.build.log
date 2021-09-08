@@ -1,4 +1,4 @@
-17:26:09 **** Incremental Build of configuration Debug for project Chapter1 ****
+17:57:30 **** Build of configuration Debug for project Chapter1 ****
 make -j8 all 
 arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o"
 arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o"
@@ -23,7 +23,7 @@ Finished building target: Chapter1.elf
 arm-none-eabi-size   Chapter1.elf 
 arm-none-eabi-objdump -h -S  Chapter1.elf  > "Chapter1.list"
    text	   data	    bss	    dec	    hex	filename
-   4676	     20	   1572	   6268	   187c	Chapter1.elf
+   4828	     20	   1572	   6420	   1914	Chapter1.elf
 arm-none-eabi-objcopy  -O ihex  Chapter1.elf  "Chapter1.hex"
 arm-none-eabi-objcopy  -O binary  Chapter1.elf  "Chapter1.bin"
 Finished building: default.size.stdout
@@ -31,9 +31,9 @@ Finished building: default.size.stdout
 Finished building: Chapter1.hex
 Finished building: Chapter1.bin
  
- 
 Finished building: Chapter1.list
  
+ 
 
-17:26:13 Build Finished. 0 errors, 0 warnings. (took 3s.249ms)
+17:57:33 Build Finished. 0 errors, 0 warnings. (took 2s.954ms)
 
