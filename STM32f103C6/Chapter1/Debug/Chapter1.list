@@ -132,24 +132,24 @@ int main(void)
  800017a:	f000 fbfd 	bl	8000978 <HAL_GPIO_WritePin>
  800017e:	e010      	b.n	80001a2 <main+0x56>
 		  }
-		  else if(i >= 3 && i < 5) {
+		  else if(i >= 2 && i < 5) {
  8000180:	687b      	ldr	r3, [r7, #4]
- 8000182:	2b02      	cmp	r3, #2
+ 8000182:	2b01      	cmp	r3, #1
  8000184:	dd08      	ble.n	8000198 <main+0x4c>
  8000186:	687b      	ldr	r3, [r7, #4]
  8000188:	2b04      	cmp	r3, #4
  800018a:	dc05      	bgt.n	8000198 <main+0x4c>
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
  800018c:	2200      	movs	r2, #0
- 800018e:	2140      	movs	r1, #64	; 0x40
+ 800018e:	2180      	movs	r1, #128	; 0x80
  8000190:	4809      	ldr	r0, [pc, #36]	; (80001b8 <main+0x6c>)
  8000192:	f000 fbf1 	bl	8000978 <HAL_GPIO_WritePin>
  8000196:	e004      	b.n	80001a2 <main+0x56>
 		  }
 		  else {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
  8000198:	2200      	movs	r2, #0
- 800019a:	2180      	movs	r1, #128	; 0x80
+ 800019a:	2140      	movs	r1, #64	; 0x40
  800019c:	4806      	ldr	r0, [pc, #24]	; (80001b8 <main+0x6c>)
  800019e:	f000 fbeb 	bl	8000978 <HAL_GPIO_WritePin>
 		  }
