@@ -96,28 +96,27 @@ int main(void)
 	  for(int i = 9; i >= 0; i--) {
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
 		  if(i >= 5) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0); // RV
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
 			  display7SEG(i-5);
 		  }
 		  else if(i >= 2 && i < 5) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0); // GV
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
 			  display7SEG(i-2);
 		  }
 		  else {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0); // YV
-			  display7SEG(i);
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
 		  }
 
 		  if(i >= 7) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0); // GH
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);
 		  }
 		  else if(i >= 5 && i < 7) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0); // YH
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
 		  }
 		  else {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0); // RH
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
 		  }
-		  HAL_Delay(500);
+		  HAL_Delay(250);
 	  }
     /* USER CODE END WHILE */
 
