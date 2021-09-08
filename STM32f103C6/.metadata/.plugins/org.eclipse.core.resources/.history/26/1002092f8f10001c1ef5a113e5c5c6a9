@@ -94,27 +94,16 @@ int main(void)
   while (1)
   {
 	  for(int i = 9; i >= 0; i--) {
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, 1);
 		  if(i >= 5) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0); // RV
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
 		  }
-		  else if(i >= 2 && i < 5) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0); // GV
-		  }
-		  else {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0); // YV
-		  }
-
-		  if(i >= 7) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0); // GH
-		  }
-		  else if(i >= 5 && i < 7) {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0); // YH
+		  else if(i >= 3 && i < 5) {
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
 		  }
 		  else {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0); // RH
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
 		  }
-
 		  HAL_Delay(250);
 	  }
 
