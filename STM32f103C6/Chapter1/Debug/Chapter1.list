@@ -141,8 +141,8 @@ int main(void)
  8000192:	2b0b      	cmp	r3, #11
  8000194:	ddec      	ble.n	8000170 <main+0x24>
 	  }
-	  HAL_Delay(250);
- 8000196:	20fa      	movs	r0, #250	; 0xfa
+	  HAL_Delay(255);
+ 8000196:	20ff      	movs	r0, #255	; 0xff
  8000198:	f000 f962 	bl	8000460 <HAL_Delay>
 	  HAL_GPIO_WritePin(GPIOA, 0xffff, 1);
  800019c:	e7df      	b.n	800015e <main+0x12>
