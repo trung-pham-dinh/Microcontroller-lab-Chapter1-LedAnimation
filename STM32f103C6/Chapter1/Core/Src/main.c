@@ -52,8 +52,9 @@ uint16_t row7[] = {GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_1
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-void clearMatrix();
-void ledScan();
+void clearMatrix(void);
+void setClock(void);
+void ledScan(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -180,11 +181,7 @@ static void MX_GPIO_Init(void)
 void clearMatrix() {
 	for(int i = 0; i < 7; i++) {
 		for(int j = 0; j < 5; j++) {
-//			if((i == 2 && j == 2) || (i == 1 && j == 2)) {
-//				matrix[i][j] = 1;
-//			}
-//			else
-				matrix[i][j] = 0;
+			matrix[i][j] = 0;
 		}
 	}
 }
@@ -209,7 +206,7 @@ void ledScan() {
 	static int row = 0;
 	static long long time = -10;
 
-	if(HAL_GetTick() - time >= 10) {
+	if(HAL_GetTick() - time >= 5) {
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8, 0);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, 1);
 
@@ -230,9 +227,10 @@ void setClock() {
 	static int minute = 11;
 	static int hour = 11;
 	static long long time = 0;
-	time = HAL_GetTick();
 
 	if(HAL_GetTick() - time >= 500) {
+		time = HAL_GetTick();
+
 		second = (second==11)? 0:second+1;
 		if(second == 0) {
 			minute = (minute==11)? 0:minute+1;
@@ -245,8 +243,6 @@ void setClock() {
 		matrix[led[second][0]][led[second][1]] = 1;
 		matrix[led[minute][0]][led[minute][1]] = 1;
 		matrix[led[hour][0]][led[hour][1]] = 1;
-
-		time = HAL_GetTick();
 	}
 }
 /* USER CODE END 4 */
