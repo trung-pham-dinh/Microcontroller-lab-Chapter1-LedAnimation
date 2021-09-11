@@ -42,17 +42,18 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+int matrix[7][5] = {0};
+int led[12][2] = {{1,2}, {1,3}, {2,4}, {3,4}, {4,4}, {5,3}, {5,2}, {5,1}, {4,0}, {3,0}, {2,0}, {1,1}};
+uint16_t col5[] = {GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8};
+uint16_t row7[] = {GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-void clearAllClock();
-void setNumberClock(int);
-void clearNumberClock(int);
-void setClock();
+void clearMatrix();
+void ledScan();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -94,12 +95,17 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  clearAllClock();
+  clearMatrix();
   while (1)
   {
-    /* USER CODE END WHILE */
+//	if(HAL_GetTick() - millis > 1000) {
+//		millis = HAL_GetTick();
+//		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+//	}
 	  setClock();
-	  HAL_Delay(250);
+	  ledScan();
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -171,31 +177,77 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void clearAllClock() {
-	HAL_GPIO_WritePin(GPIOA, 0xffff, 1);
+void clearMatrix() {
+	for(int i = 0; i < 7; i++) {
+		for(int j = 0; j < 5; j++) {
+//			if((i == 2 && j == 2) || (i == 1 && j == 2)) {
+//				matrix[i][j] = 1;
+//			}
+//			else
+				matrix[i][j] = 0;
+		}
+	}
 }
-void setNumberClock(int num) {
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 << num, 0);
-}
-void clearNumberClock(int num) {
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 << num, 1);
+void ledScan() {
+/*
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8, 0);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, 1);
+
+	for(int col = 0; col < 5; col ++) {
+		HAL_GPIO_WritePin(GPIOA, col5[col], 1);
+		for(int row = 0; row < 7; row++) {
+			if(matrix[row][col]) {
+				HAL_GPIO_WritePin(GPIOA, row7[row], 0);
+			}
+		}
+		HAL_Delay(10);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8, 0);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, 1);
+	}
+*/
+	static int col = 0;
+	static int row = 0;
+	static long long time = -10;
+
+	if(HAL_GetTick() - time >= 10) {
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8, 0);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, 1);
+
+
+		HAL_GPIO_WritePin(GPIOA, col5[col], 1);
+		for(row = 0; row < 7; row++) {
+			if(matrix[row][col]) {
+				HAL_GPIO_WritePin(GPIOA, row7[row], 0);
+			}
+		}
+
+		col = (col < 4)? col+1:0;
+		time = HAL_GetTick();
+	}
 }
 void setClock() {
 	static int second = 11;
 	static int minute = 11;
 	static int hour = 11;
+	static long long time = 0;
+	time = HAL_GetTick();
 
-	second = (second==11)? 0:second+1;
-	if(second == 0) {
-		minute = (minute==11)? 0:minute+1;
-		if(minute == 0) {
-			hour = (hour==11)? 0:hour+1;
+	if(HAL_GetTick() - time >= 500) {
+		second = (second==11)? 0:second+1;
+		if(second == 0) {
+			minute = (minute==11)? 0:minute+1;
+			if(minute == 0) {
+				hour = (hour==11)? 0:hour+1;
+			}
 		}
+
+		clearMatrix();
+		matrix[led[second][0]][led[second][1]] = 1;
+		matrix[led[minute][0]][led[minute][1]] = 1;
+		matrix[led[hour][0]][led[hour][1]] = 1;
+
+		time = HAL_GetTick();
 	}
-	clearAllClock();
-	setNumberClock(second);
-	setNumberClock(minute);
-	setNumberClock(hour);
 }
 /* USER CODE END 4 */
 
